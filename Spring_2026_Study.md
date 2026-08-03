@@ -1,4 +1,4 @@
-# Executive Summary  
+# Phased PR's Summary of LFX Spring 2026 
 Top contributor Ishaan Arora structured the LFX parameter extraction effort into **eight phases**, each tracked by a GitHub issue and corresponding PR.  These phases progressively build a pipeline: (1) exporting UDB parameters, (2) defining a formal taxonomy and prompts, (3) chunking the spec, (4) running an extraction agent, (5) analyzing results, and further refinement phases.  Key deliverables include Python scripts (`export_udb_params.py`, `run_prompt.py`, `chunker.py`, `analyze.py`, etc.), data artifacts (`ground_truth.json`, `chunks/*.adoc`), and YAML catalogs.  Most PRs remain **open** (work-in-progress) and have been reviewed by core maintainers (e.g. Paul Clarke, Derek Hower).  The table below lists each phase with PR links, status, and date.  
 
 | Phase | PR (link) | Files/Paths Changed | Status | Date (first commit) |

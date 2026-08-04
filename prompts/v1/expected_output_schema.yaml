@@ -1,0 +1,19 @@
+parameters:
+
+  - name: UPPER_SNAKE_CASE_IDENTIFIER
+
+    description: Brief description of the architectural parameter.
+
+    type: integer | boolean | enum | string | array
+
+    constraints:
+
+      minimum:
+
+      maximum:
+
+      enum:
+
+      power_of_two:
+
+      note:

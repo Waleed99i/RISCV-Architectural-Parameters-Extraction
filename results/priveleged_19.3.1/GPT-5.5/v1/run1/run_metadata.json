@@ -1,0 +1,17 @@
+{
+    "schema": "parameter_extraction_run/1.0",
+    "timestamp_utc": "2026-08-04T13:32:37.388667+00:00",
+    "provider": "OpenAI",
+    "model": "GPT-5.5",
+    "prompt_version": "v1",
+    "snippet": "priveleged_19.3.1",
+    "run": "1",
+    "response_source": "manual_copy",
+    "status": "success",
+    "prompt_sha256_16": {
+        "system": "e2d3383e87161067",
+        "user": "bd92d6d8872eedaf"
+    },
+    "raw_response_characters": 431,
+    "yaml_generated": true
+}

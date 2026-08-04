@@ -1,0 +1,3 @@
+'''
+basically a Hallucination Checker
+'''

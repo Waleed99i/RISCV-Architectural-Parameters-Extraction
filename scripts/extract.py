@@ -103,6 +103,34 @@ SUPPORTED_MODELS = {
     },
 
     "10": {
+        "llm_name": "Mistral",
+        "provider": "Mistral AI",
+        "model": "Mistral Medium 3.5",
+        "context_length": "32K tokens"
+    },
+
+    "11": {
+        "llm_name": "Perplexity",
+        "provider": "Perplexity AI",
+        "model": "Sonar-Perplexity",
+        "context_length": "128K tokens"
+    },
+
+    "12": {
+        "llm_name": "GLM",
+        "provider": "Zhipu AI",
+        "model": "GLM-5.2",
+        "context_length": "128K tokens"
+    },
+
+    "13": {
+        "llm_name": "Grok",
+        "provider": "xAI",
+        "model": "Grok 4",
+        "context_length": "256K tokens"
+    },
+
+    "14": {
         "llm_name": "Custom",
         "provider": "",
         "model": "",

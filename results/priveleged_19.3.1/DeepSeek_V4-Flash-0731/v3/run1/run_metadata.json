@@ -1,0 +1,19 @@
+{
+    "schema": "parameter_extraction_run/1.0",
+    "timestamp_utc": "2026-08-05T09:42:54.506487+00:00",
+    "llm_name": "DeepSeek",
+    "provider": "DeepSeek",
+    "model": "DeepSeek V4-Flash-0731",
+    "context_length": "1,048,576 tokens",
+    "prompt_version": "v3",
+    "snippet": "priveleged_19.3.1",
+    "run": "1",
+    "response_source": "manual_copy",
+    "status": "success",
+    "prompt_sha256_16": {
+        "system": "5e21a62f7dffcfc3",
+        "user": "952c0825c3e1e063"
+    },
+    "raw_response_characters": 1421,
+    "yaml_generated": true
+}

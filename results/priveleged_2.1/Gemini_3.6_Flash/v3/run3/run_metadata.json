@@ -1,0 +1,19 @@
+{
+    "schema": "parameter_extraction_run/1.0",
+    "timestamp_utc": "2026-08-05T09:42:01.646436+00:00",
+    "llm_name": "Gemini",
+    "provider": "Google",
+    "model": "Gemini 3.6 Flash",
+    "context_length": "1,048,576 tokens",
+    "prompt_version": "v3",
+    "snippet": "priveleged_2.1",
+    "run": "3",
+    "response_source": "manual_copy",
+    "status": "success",
+    "prompt_sha256_16": {
+        "system": "5e21a62f7dffcfc3",
+        "user": "952c0825c3e1e063"
+    },
+    "raw_response_characters": 834,
+    "yaml_generated": true
+}

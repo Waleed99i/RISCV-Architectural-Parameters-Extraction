@@ -212,14 +212,12 @@ versions.
 ```
 
 ```mermaid
-graph LR
-
-A["V1 Baseline Extraction"]
---> B["V2 Decision-Based Verification"]
---> C["V3 Evidence-Driven Extraction"]
---> D["V4 Production Pipeline"]
+flowchart LR
+    A["V1<br/>Baseline Extraction"]
+    --> B["V2<br/>Decision-Based Verification"]
+    --> C["V3<br/>Evidence-Driven Extraction"]
+    --> D["FINAL<br/>Production Pipeline"]
 ```
-
 ---
 
 Version 2 serves as the transition from simple keyword-based extraction to a structured architectural decision framework. It establishes the first formal verification layer used throughout the remaining prompt versions.

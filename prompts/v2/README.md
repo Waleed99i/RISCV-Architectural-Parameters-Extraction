@@ -212,17 +212,16 @@ versions.
 ```
 
 ```mermaid
-flowchart LR
+graph LR
 
-V1[Version 1<br/>Baseline Extraction]
-
-V2[Version 2<br/>Decision-Based Verification]
-
-V3[Version 3<br/>Evidence-Driven Extraction]
-
-V4[FINAL<br/>Production Pipeline]
-
-V1 --> V2 --> V3 --> V4
+A["V1
+Baseline Extraction"]
+--> B["V2
+Decision-Based Verification"]
+--> C["V3
+Evidence-Driven Extraction"]
+--> D["V4
+Production Pipeline"]
 ```
 
 ---

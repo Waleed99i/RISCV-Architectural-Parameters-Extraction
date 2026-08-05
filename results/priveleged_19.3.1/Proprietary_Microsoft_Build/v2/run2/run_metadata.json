@@ -1,0 +1,19 @@
+{
+    "schema": "parameter_extraction_run/1.0",
+    "timestamp_utc": "2026-08-05T06:58:30.397318+00:00",
+    "llm_name": "Copilot",
+    "provider": "Microsoft",
+    "model": "Proprietary Microsoft Build",
+    "context_length": "Not publicly disclosed",
+    "prompt_version": "v2",
+    "snippet": "priveleged_19.3.1",
+    "run": "2",
+    "response_source": "manual_copy",
+    "status": "success",
+    "prompt_sha256_16": {
+        "system": "d548a8c6f439484b",
+        "user": "627c1ad897519cdb"
+    },
+    "raw_response_characters": 1256,
+    "yaml_generated": true
+}

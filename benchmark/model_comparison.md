@@ -1,0 +1,33 @@
+# Model Comparison
+
+This report summarizes all comparison reports generated under the `comparisons/` directory.
+
+## comparison_19.3.1
+
+```text
+| Parameter | DeepSeek_V4-Flash-0731 | Gemini_3 | Gemini_3.6_Flash | GLM-5.2 | GPT-5.5 | Ising-Calibration-1.5 | K2.6 | Proprietary_Microsoft_Build | Qwen | Sonar-Perplexity |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CACHE_BLOCK_SIZE | The size of a cache block, representing a contiguous, naturally aligned power-of-two (or NAPOT) range of memory locations. Uniform throughout the system in the initial CMO extensions. | The size of a cache block, representing a contiguous, naturally aligned power-of-two range of memory locations. | - | - | Implementation-specific size of a cache block that is discoverable by software. | - | - | The size of a cache block is implementation-specific but must be uniform throughout the system. | Implementation-specific size of a cache block. | - |
+| CACHE_CAPACITY | The total data storage capacity of a cache. | The total storage capacity of the cache. | - | - | - | - | - | The total capacity of a cache is implementation-specific. | - | - |
+| CACHE_ORGANIZATION | The structural arrangement of a cache. | The structural organization of the cache. | - | - | - | - | - | The organization of a cache is implementation-specific. | - | - |
+| CacheBlockSize | - | - | - | - | - | The size of a cache block in bytes. This value is implementation-specific and represents the fundamental unit of data transfer and storage in the cache system. | - | - | - | - |
+| CacheCapacity | - | - | - | - | - | The total storage capacity of a cache in bytes. This parameter is implementation-specific and determines the maximum amount of data that can be stored in the cache. | - | - | - | - |
+| cache_block_size | - | - | The size of a cache block in bytes, representing a contiguous, naturally aligned power-of-two (NAPOT) range of memory locations. | The size of a cache block, which is implementation-specific and discoverable by software. | - | - | The size of a cache block. | - | - | The size of a cache block is implementation-specific and the execution environment provides software a means to discover information about the caches and cache blocks in a system. |
+| cache_capacity | - | - | - | The capacity of a cache, which is implementation-specific and discoverable by software. | - | - | The capacity of a cache. | - | - | The capacity of a cache is implementation-specific and software can discover information about caches and cache blocks in the system. |
+| cache_organization | - | - | - | The organization of a cache, which is implementation-specific and discoverable by software. | - | - | The organization of a cache. | - | - | The organization of a cache is implementation-specific and software can discover information about caches and cache blocks in the system. |
+```
+
+## comparison_2.1
+
+```text
+| Parameter |
+| --- |
+```
+
+---
+
+## Overall Observation
+
+- Comparison files were successfully discovered.
+- Review the individual comparison reports above.
+- After evaluation metrics are available (Precision, Recall, F1, etc.), this section can be extended with automatic ranking of models.

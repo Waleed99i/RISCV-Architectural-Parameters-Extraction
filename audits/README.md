@@ -1,4 +1,3 @@
-give in markdown ````markdown
 # Evidence Audit & Hallucination Detection
 
 ## Overview
@@ -353,7 +352,3 @@ The Evidence Auditor ensures that automated RISC-V architectural parameter extra
 * Auditable
 * Resistant to hallucinations
 
-It provides an additional trust layer between LLM-generated outputs and final architectural parameter databases.
-
-```
-```

@@ -1,0 +1,28 @@
+parameters:
+  - name: UPPER_SNAKE_CASE
+    long_name: Human readable name
+    description: Parameter description
+    type: integer | boolean | enum | string | array
+
+    constraints:
+      minimum:
+      maximum:
+      power_of_two:
+      enum:
+      note:
+
+    excerpt: Exact quotation copied from specification
+
+    trigger: Exact signal word or phrase
+
+    defined_by:
+
+    isa_visible:
+
+    confidence: high | medium | low
+
+rejected:
+  - candidate:
+    reason:
+    excerpt:
+    explanation:

@@ -1,0 +1,19 @@
+parameters:
+  - name: string
+    long_name: string
+    description: string
+    type: string
+    constraints:
+      - string
+    excerpt: string
+    trigger: string
+    defined_by: string
+    isa_visible: true
+    confidence: high
+
+rejected:
+  - candidate: string
+    category: string
+    reason: string
+    excerpt: string
+    explanation: string

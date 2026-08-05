@@ -1,0 +1,33 @@
+parameters:
+
+  - name: string
+
+    description: string
+
+    type: integer | boolean | enum | string | array
+
+    constraints:
+
+      minimum:
+
+      maximum:
+
+      enum:
+
+      note:
+
+    excerpt: string
+
+    trigger: string
+
+    confidence: high | medium | low
+
+rejected:
+
+  - candidate: string
+
+    reason: string
+
+    excerpt: string
+
+    explanation: string

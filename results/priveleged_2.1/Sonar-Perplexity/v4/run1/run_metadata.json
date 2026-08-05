@@ -1,0 +1,19 @@
+{
+    "schema": "parameter_extraction_run/1.0",
+    "timestamp_utc": "2026-08-05T11:07:52.474466+00:00",
+    "llm_name": "Perplexity",
+    "provider": "Perplexity AI",
+    "model": "Sonar-Perplexity",
+    "context_length": "128K tokens",
+    "prompt_version": "v4",
+    "snippet": "priveleged_2.1",
+    "run": "1",
+    "response_source": "manual_copy",
+    "status": "success",
+    "prompt_sha256_16": {
+        "system": "73b40a0877f01cbe",
+        "user": "669e8fbeb51b124d"
+    },
+    "raw_response_characters": 1734,
+    "yaml_generated": true
+}

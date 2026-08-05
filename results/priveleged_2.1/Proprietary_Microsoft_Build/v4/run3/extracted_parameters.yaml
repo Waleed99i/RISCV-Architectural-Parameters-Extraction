@@ -1,0 +1,20 @@
+parameters: []
+
+rejected:
+  - candidate: CSR_ENCODING_SPACE
+    category: Architectural Constant
+    reason: FIXED_BY_ARCHITECTURE
+    excerpt: "The standard RISC-V ISA sets aside a 12-bit encoding space (csr[11:0]) for up to 4,096 CSRs."
+    explanation: The CSR encoding space is specified by the ISA and is not implementation-defined.
+
+  - candidate: CSR_ACCESSIBILITY_ENCODING
+    category: Architectural Constant
+    reason: FIXED_BY_ARCHITECTURE
+    excerpt: "The top two bits (csr[11:10]) indicate whether the register is read/write (00,01, or 10) or read-only (11)."
+    explanation: The accessibility encoding is fixed by the architecture and cannot vary between compliant implementations.
+
+  - candidate: CSR_PRIVILEGE_LEVEL_ENCODING
+    category: Architectural Constant
+    reason: FIXED_BY_ARCHITECTURE
+    excerpt: "The next two bits (csr[9:8]) encode the lowest privilege level that can access the CSR."
+    explanation: The privilege-level encoding is architecturally specified and is not an implementation-selectable parameter.

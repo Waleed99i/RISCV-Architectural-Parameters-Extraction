@@ -179,23 +179,7 @@ Rejected --> Report
 
 ---
 
-# Compatible Automation Scripts
 
-```text
-extract.py
-candidate_detector.py
-parameter_classifier.py
-schema_mapper.py
-evidence_auditor.py
-validate.py
-validate_udb.py
-benchmark.py
-compare.py
-evaluate.py
-report_generator.py
-```
-
----
 
 # Generated Outputs
 

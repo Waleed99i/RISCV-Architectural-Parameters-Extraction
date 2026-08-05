@@ -1,0 +1,19 @@
+[
+    {
+        "line": 3,
+        "sentence": "The capacity and organization of a cache and the size of a cache block are both implementation-specific, and the execution environment provides software a means to discover information about the caches and cache blocks in a system.",
+        "matched_keywords": [
+            "implementation-specific",
+            "discover"
+        ],
+        "score": 1.0
+    },
+    {
+        "line": 4,
+        "sentence": "In the initial set of CMO extensions, the size of a cache block shall be uniform throughout the system.",
+        "matched_keywords": [
+            "shall"
+        ],
+        "score": 0.5
+    }
+]

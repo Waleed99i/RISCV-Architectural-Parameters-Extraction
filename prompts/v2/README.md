@@ -214,14 +214,10 @@ versions.
 ```mermaid
 graph LR
 
-A["V1
-Baseline Extraction"]
---> B["V2
-Decision-Based Verification"]
---> C["V3
-Evidence-Driven Extraction"]
---> D["V4
-Production Pipeline"]
+A["V1 Baseline Extraction"]
+--> B["V2 Decision-Based Verification"]
+--> C["V3 Evidence-Driven Extraction"]
+--> D["V4 Production Pipeline"]
 ```
 
 ---

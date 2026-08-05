@@ -1,19 +1,19 @@
 {
     "schema": "parameter_extraction_run/1.0",
-    "timestamp_utc": "2026-08-05T05:26:26.536678+00:00",
-    "llm_name": "ChatGPT",
-    "provider": "OpenAI",
-    "model": "GPT-5.5",
+    "timestamp_utc": "2026-08-05T04:56:30.515781+00:00",
+    "llm_name": "Gemini",
+    "provider": "Google",
+    "model": "Gemini 3.6 Flash",
     "context_length": "1,048,576 tokens",
     "prompt_version": "v1",
-    "snippet": "priveleged_19.3.1",
-    "run": "1",
+    "snippet": "priveleged_2.1",
+    "run": "2",
     "response_source": "manual_copy",
     "status": "success",
     "prompt_sha256_16": {
         "system": "e2d3383e87161067",
         "user": "bd92d6d8872eedaf"
     },
-    "raw_response_characters": 431,
+    "raw_response_characters": 14,
     "yaml_generated": true
 }

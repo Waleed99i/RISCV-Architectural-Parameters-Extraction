@@ -39,17 +39,75 @@ RESULTS_DIR = ROOT_DIR / "results"
 
 SUPPORTED_MODELS = {
 
-    "1": ("OpenAI", "GPT-5.5"),
+    "1": {
+        "llm_name": "ChatGPT",
+        "provider": "OpenAI",
+        "model": "GPT-5.5",
+        "context_length": "1,048,576 tokens"
+    },
 
-    "2": ("Anthropic", "Claude Sonnet 4"),
+    "2": {
+        "llm_name": "Gemini",
+        "provider": "Google",
+        "model": "Gemini 3.6 Flash",
+        "context_length": "1,048,576 tokens"
+    },
 
-    "3": ("Google", "Gemini 2.5 Pro"),
+    "3": {
+        "llm_name": "DeepSeek",
+        "provider": "DeepSeek",
+        "model": "DeepSeek V4-Flash-0731",
+        "context_length": "1,048,576 tokens"
+    },
 
-    "4": ("DeepSeek", "DeepSeek V3"),
+    "4": {
+        "llm_name": "Claude",
+        "provider": "Anthropic",
+        "model": "Claude Sonnet 5",
+        "context_length": "1,048,576 tokens"
+    },
 
-    "5": ("Alibaba", "Qwen3-235B"),
+    "5": {
+        "llm_name": "Kimi",
+        "provider": "Moonshot AI",
+        "model": "K2.6",
+        "context_length": "256K tokens (2M characters extended)"
+    },
 
-    "6": ("Custom", None)
+    "6": {
+        "llm_name": "Copilot",
+        "provider": "Microsoft",
+        "model": "Proprietary Microsoft Build",
+        "context_length": "Not publicly disclosed"
+    },
+
+    "7": {
+        "llm_name": "Gemini",
+        "provider": "Google",
+        "model": "Gemini 3",
+        "context_length": "Up to 1M tokens"
+    },
+
+    "8": {
+        "llm_name": "NVIDIA",
+        "provider": "NVIDIA",
+        "model": "Ising-Calibration-1.5",
+        "context_length": "4096 tokens"
+    },
+
+    "9": {
+        "llm_name": "Qwen",
+        "provider": "Alibaba Tongyi Lab",
+        "model": "Qwen",
+        "context_length": "Up to 256K+ tokens"
+    },
+
+    "10": {
+        "llm_name": "Custom",
+        "provider": "",
+        "model": "",
+        "context_length": ""
+    }
 
 }
 
@@ -115,40 +173,35 @@ def choose(title, options):
 def choose_model():
 
     print()
-
     print("Available Models")
-
     print("----------------")
 
     for key, value in SUPPORTED_MODELS.items():
 
-        provider, model = value
-
-        if model is None:
-
+        if value["llm_name"] == "Custom":
             print(f"{key}. Custom")
-
         else:
-
-            print(f"{key}. {model}")
+            print(f'{key}. {value["llm_name"]} ({value["model"]})')
 
     while True:
 
         selection = input("\nSelection: ").strip()
 
         if selection not in SUPPORTED_MODELS:
-
             continue
 
-        provider, model = SUPPORTED_MODELS[selection]
+        model = SUPPORTED_MODELS[selection]
 
-        if model is None:
+        if model["llm_name"] == "Custom":
 
-            provider = input("Provider : ")
+            return {
+                "llm_name": input("LLM Name        : "),
+                "provider": input("Provider        : "),
+                "model": input("Version         : "),
+                "context_length": input("Context Length  : ")
+            }
 
-            model = input("Model    : ")
-
-        return provider, model
+        return model
     
 def read_response():
 
@@ -261,8 +314,7 @@ def save_yaml(directory, yaml_text):
 # Generate Metadata
 # ============================================================
 
-def generate_metadata(provider,
-                      model,
+def generate_metadata(model_info,
                       prompt_version,
                       snippet,
                       run_number,
@@ -286,9 +338,10 @@ def generate_metadata(provider,
 
         "timestamp_utc": timestamp(),
 
-        "provider": provider,
-
-        "model": model,
+        "llm_name": model_info["llm_name"],
+        "provider": model_info["provider"],
+        "model": model_info["model"],
+        "context_length": model_info["context_length"],
 
         "prompt_version": prompt_version,
 
@@ -385,7 +438,7 @@ def main():
 
     )
 
-    provider, model = choose_model()
+    model_info = choose_model()
 
     print()
 
@@ -404,15 +457,10 @@ def main():
     snippet_name = snippet_path.stem
 
     results_directory = create_results_directory(
-
         snippet_name,
-
-        model,
-
+        model_info["model"],
         prompt_version,
-
         run_number
-
     )
 
     save_raw_response(
@@ -432,19 +480,11 @@ def main():
     )
 
     metadata = generate_metadata(
-
-        provider,
-
-        model,
-
+        model_info,
         prompt_version,
-
         snippet_name,
-
         run_number,
-
         raw_response
-
     )
 
     save_metadata(

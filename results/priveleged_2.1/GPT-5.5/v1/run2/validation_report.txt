@@ -1,0 +1,38 @@
+RISC-V Architectural Parameter Extraction Validation
+============================================================
+
+LLM Model : GPT-5.5
+Version   : v1
+Run       : run2
+
+Status : FAILED
+
+Errors:
+- Parameter [0]: missing field 'long_name'
+- Parameter [0]: missing field 'excerpt'
+- Parameter [0]: missing field 'trigger'
+- Parameter [0]: missing field 'defined_by'
+- Parameter [0]: missing field 'isa_visible'
+- Parameter [0]: missing field 'confidence'
+- Parameter [0]: missing evidence excerpt
+- Parameter [1]: missing field 'long_name'
+- Parameter [1]: missing field 'excerpt'
+- Parameter [1]: missing field 'trigger'
+- Parameter [1]: missing field 'defined_by'
+- Parameter [1]: missing field 'isa_visible'
+- Parameter [1]: missing field 'confidence'
+- Parameter [1]: missing evidence excerpt
+- Parameter [2]: missing field 'long_name'
+- Parameter [2]: missing field 'excerpt'
+- Parameter [2]: missing field 'trigger'
+- Parameter [2]: missing field 'defined_by'
+- Parameter [2]: missing field 'isa_visible'
+- Parameter [2]: missing field 'confidence'
+- Parameter [2]: missing evidence excerpt
+- Parameter [3]: missing field 'long_name'
+- Parameter [3]: missing field 'excerpt'
+- Parameter [3]: missing field 'trigger'
+- Parameter [3]: missing field 'defined_by'
+- Parameter [3]: missing field 'isa_visible'
+- Parameter [3]: missing field 'confidence'
+- Parameter [3]: missing evidence excerpt

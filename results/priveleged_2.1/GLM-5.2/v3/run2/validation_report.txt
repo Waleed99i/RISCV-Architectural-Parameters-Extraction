@@ -1,0 +1,13 @@
+RISC-V Architectural Parameter Extraction Validation
+============================================================
+
+LLM Model : GLM-5.2
+Version   : v3
+Run       : run2
+
+Status : FAILED
+
+Errors:
+- Rejected [0]: missing 'category'
+- Rejected [1]: missing 'category'
+- Rejected [2]: missing 'category'

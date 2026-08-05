@@ -1,0 +1,11 @@
+RISC-V Architectural Parameter Extraction Validation
+============================================================
+
+LLM Model : Gemini_3.6_Flash
+Version   : v1
+Run       : run2
+
+Status : FAILED
+
+Errors:
+- 'parameters' must be a list

@@ -1,0 +1,12 @@
+RISC-V Architectural Parameter Extraction Validation
+============================================================
+
+LLM Model : Mistral_Medium_3.5
+Version   : v4
+Run       : run1
+
+Status : FAILED
+
+Errors:
+- 'parameters' must be a list
+- 'rejected' must be a list

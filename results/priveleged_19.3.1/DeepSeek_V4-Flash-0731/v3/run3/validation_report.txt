@@ -1,0 +1,10 @@
+RISC-V Architectural Parameter Extraction Validation
+============================================================
+
+LLM Model : DeepSeek_V4-Flash-0731
+Version   : v3
+Run       : run3
+
+Status : PASSED
+
+Errors : None

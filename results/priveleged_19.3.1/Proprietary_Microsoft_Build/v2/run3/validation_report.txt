@@ -1,0 +1,19 @@
+RISC-V Architectural Parameter Extraction Validation
+============================================================
+
+LLM Model : Proprietary_Microsoft_Build
+Version   : v2
+Run       : run3
+
+Status : FAILED
+
+Errors:
+- Parameter [0]: missing field 'long_name'
+- Parameter [0]: missing field 'defined_by'
+- Parameter [0]: missing field 'isa_visible'
+- Parameter [1]: missing field 'long_name'
+- Parameter [1]: missing field 'defined_by'
+- Parameter [1]: missing field 'isa_visible'
+- Parameter [2]: missing field 'long_name'
+- Parameter [2]: missing field 'defined_by'
+- Parameter [2]: missing field 'isa_visible'

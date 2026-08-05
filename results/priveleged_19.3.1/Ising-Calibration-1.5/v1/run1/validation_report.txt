@@ -1,0 +1,11 @@
+RISC-V Architectural Parameter Extraction Validation
+============================================================
+
+LLM Model : Ising-Calibration-1.5
+Version   : v1
+Run       : run1
+
+Status : FAILED
+
+Errors:
+- Missing top-level 'parameters'

@@ -1,0 +1,14 @@
+RISC-V Architectural Parameter Extraction Validation
+============================================================
+
+LLM Model : Mistral_Medium_3.5
+Version   : v3
+Run       : run1
+
+Status : FAILED
+
+Errors:
+- Rejected [0]: missing 'category'
+- Rejected [1]: missing 'category'
+- Rejected [2]: missing 'category'
+- Rejected [3]: missing 'category'

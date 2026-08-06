@@ -1,8 +1,23 @@
-# RISCV-Architectural-Parameters-Extraction# RISCV-Architectural-Parameters-Extraction
+<div align="center">
 
-> **AI-Assisted Extraction of RISC-V Architectural Parameters from the RISC-V ISA Specifications using Large Language Models (LLMs)**
 
----
+# AI-Assisted Extraction of RISC-V Architectural Parameters using Large Language Models
+
+
+
+</div>
+
+
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![RISC-V](https://img.shields.io/badge/RISC--V-ISA-red?style=for-the-badge)
+![LLM](https://img.shields.io/badge/12-LLMs-blueviolet?style=for-the-badge)
+![Prompt](https://img.shields.io/badge/Prompt-V1→V4-success?style=for-the-badge)
+![Validation](https://img.shields.io/badge/YAML-Validation-green?style=for-the-badge)
+![Evidence](https://img.shields.io/badge/Evidence-Auditing-orange?style=for-the-badge)
+![Ground Truth](https://img.shields.io/badge/Ground-Truth-yellow?style=for-the-badge)
+![UDB](https://img.shields.io/badge/UDB-Compatible-red?style=for-the-badge)
+
+*Benchmarking • Prompt Engineering • Validation • Evidence Auditing • UnifiedDB YAML Generation*
 
 ## Overview
 

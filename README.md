@@ -92,23 +92,77 @@ Each prompt version contains the same four supporting files:
 
 ### V4 Workflow
 
-
 ```mermaid
 flowchart TD
-    A["V4 Input<br/>RISC-V Specification Snippet"]
 
-    A --> T1["T1 — Candidate Detection<br/>Identify parameter-like statements"]
-    T1 --> T2["T2 — Candidate Classification<br/>Parameter or non-parameter?"]
-    T2 --> T3["T3 — Evidence Verification<br/>Verify supporting specification text"]
-    T3 --> T4["T4 — Architectural Validation<br/>Confirm architectural significance"]
-    T4 --> T5["T5 — Constraint Extraction<br/>Determine type and constraints"]
-    T5 --> T6["T6 — YAML Generation<br/>Produce structured parameter output"]
+    A["V4 INPUT<br/>RISC-V ISA Specification Snippet"]
+    
+    A --> T1
 
-    T6 --> O["Extracted Architectural Parameters"]
+    T1["T1 — CANDIDATE DETECTION<br/>
+    Identify parameter-like statements<br/>
+    and architectural signals"]
 
-    T2 -. "Rejected candidate" .-> R["Candidate Rejected"]
-    T3 -. "Unsupported evidence" .-> R
-    T4 -. "Not architectural" .-> R
+    T1 --> T2
+
+    T2{"T2 — CANDIDATE CLASSIFICATION<br/>
+    Does the statement represent<br/>
+    an architectural parameter?"}
+
+    T2 -->|YES| T3
+    T2 -.->|NO| R1["REJECT<br/>Non-Architectural Candidate"]
+
+    T3["T3 — EVIDENCE VERIFICATION<br/>
+    Locate supporting specification text<br/>
+    Validate evidence against the input"]
+
+    T3 --> D3{"Evidence<br/>Supported?"}
+
+    D3 -->|YES| T4
+    D3 -.->|NO| R2["REJECT<br/>Unsupported / Insufficient Evidence"]
+
+    T4["T4 — ARCHITECTURAL VALIDATION<br/>
+    Confirm ISA visibility,<br/>
+    architectural significance,<br/>
+    and parameter relevance"]
+
+    T4 --> D4{"Architecturally<br/>Relevant?"}
+
+    D4 -->|YES| T5
+    D4 -.->|NO| R3["REJECT<br/>Implementation / Derived Detail"]
+
+    T5["T5 — CONSTRAINT EXTRACTION<br/>
+    Determine parameter type,<br/>
+    legal values, bounds,<br/>
+    and architectural constraints"]
+
+    T5 --> D5{"Constraints<br/>Consistent?"}
+
+    D5 -->|YES| T6
+    D5 -.->|REVIEW| R4["FLAG FOR REVIEW<br/>Ambiguous Constraint"]
+
+    T6["T6 — STRUCTURED YAML GENERATION<br/>
+    Normalize name, description,<br/>
+    type, constraints, evidence,<br/>
+    trigger, and confidence"]
+
+    T6 --> O["FINAL OUTPUT<br/>Architectural Parameter YAML"]
+
+    R1 --> X["REJECTION / REVIEW RECORD<br/>
+    Candidate + Decision + Reason"]
+    R2 -.-> X
+    R3 -.-> X
+    R4 -.-> X
+
+    style A stroke-width:3px
+    style T1 stroke-width:2px
+    style T2 stroke-width:3px
+    style T3 stroke-width:2px
+    style T4 stroke-width:2px
+    style T5 stroke-width:2px
+    style T6 stroke-width:3px
+    style O stroke-width:4px
+    style X stroke-width:2px
 ```
 
 # Models Evaluated

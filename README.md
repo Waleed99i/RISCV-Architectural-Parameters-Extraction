@@ -23,33 +23,75 @@
 
 This project investigates the use of Large Language Models (LLMs) for the automated extraction of architectural parameters from the RISC-V ISA specifications and their transformation into structured, machine-readable representations suitable for the RISC-V Unified Database (UDB). The work focuses on the complete extraction workflow rather than simply asking an LLM to identify parameters: specification snippets are processed through progressively refined prompts, candidate parameters are identified and classified, extracted information is validated, supporting evidence is audited, and outputs from multiple models and repeated runs are compared against a manually prepared ground-truth baseline. The project benchmarks 12 different LLMs and evaluates their ability to distinguish genuine architectural parameters from constants, constraints, implementation-specific details, and unsupported candidates. The final stage maps the validated extraction results into UDB-shaped YAML, providing an end-to-end and reproducible workflow that connects natural-language RISC-V specifications with structured architectural data.
 
+## Snippets
+- [Priveleged 19.3.1](snippets/priveleged_19.3.1.txt)
+- [Priveleged 2.1](snippets/priveleged_2.1.txt)
+
 # Approach
 
 ```mermaid
 flowchart LR
-    V1["V1<br/>Baseline Extraction"]
-    V2["V2<br/>Candidate Rejection & Validation"]
-    V3["V3<br/>Evidence-Driven Extraction"]
-    V4["V4<br/>Architectural Validation & Structured Extraction"]
+    A["RISC-V Specification"] --> V1["V1<br/>Baseline Extraction"]
+    V1 --> V2["V2<br/>Candidate Rejection"]
+    V2 --> V3["V3<br/>Evidence-Driven"]
+    V3 --> V4["V4<br/>Full Validation Pipeline"]
 
-    V1 --> V2 --> V3 --> V4
+    V1 -.-> B1["Extract"]
+    V2 -.-> B2["Classify + Reject"]
+    V3 -.-> B3["Verify Evidence"]
+    V4 -.-> B4["Validate + Generate"]
+
+    V4 --> OUT["Structured<br/>YAML Output"]
+
+    style A stroke-width:2px
+    style V1 stroke-width:2px
+    style V2 stroke-width:2px
+    style V3 stroke-width:2px
+    style V4 stroke-width:3px
+    style OUT stroke-width:2px
 ```
 
-### V1 — Baseline Extraction
+The prompt architecture was developed iteratively from a basic extraction prompt into a structured, evidence-aware and validation-oriented workflow. Each version addresses limitations identified in the previous version while keeping the output schema sufficiently consistent for comparison.
 
-V1 establishes the initial extraction workflow by asking the LLM to read the provided RISC-V specification snippet and identify architectural parameters directly from the text. The prompt defines the expected parameter structure, including the parameter name, description, type, and constraints, and instructs the model to return the result in YAML format. This version intentionally keeps the reasoning process simple and serves as the baseline against which the later prompt versions can be evaluated. The main objective of V1 is to determine how effectively an LLM can perform architectural parameter extraction when given only the specification context and a clearly defined output schema.
+## Prompt Evolution
 
-### V2 — Candidate Rejection and Classification
+| Version                                                                                                                            | Focus             | Main Improvement                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **[V1 — Baseline Extraction](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/tree/main/prompts/v1)**        | Direct extraction | Establishes the basic parameter extraction and YAML generation workflow.                                                    |
+| **[V2 — Candidate Rejection](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/tree/main/prompts/v2)**        | Classification    | Adds explicit rejection of non-architectural candidates and architectural validation.                                       |
+| **[V3 — Evidence-Driven Extraction](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/tree/main/prompts/v3)** | Evidence          | Adds evidence excerpts, trigger tracking, confidence, and stronger constraint verification.                                 |
+| **[V4 — Production Pipeline](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/tree/main/prompts/v4)**        | Full workflow     | Combines detection, rejection, validation, evidence verification, constraint checking and automation-ready YAML generation. |
 
-V2 introduces an explicit decision process before parameter extraction. Instead of assuming that every potentially relevant statement represents an architectural parameter, the model is required to evaluate candidate statements and reject information that represents constants, implementation-specific details, derived values, ordinary constraints, or other non-architectural information. This adds a classification stage to the extraction process and aims to reduce false positives produced by the baseline approach. The expected YAML structure remains consistent so that the outputs from V1 and V2 can be compared directly while measuring the effect of introducing explicit candidate rejection.
+Each prompt version contains the same four supporting files:
 
-### V3 — Evidence-Driven Extraction
+* `system_prompt.md` — defines the model's role, rules and extraction methodology.
+* `user_prompt.md` — provides the specification input and task instructions.
+* `expected_output_schema.yaml` — defines the required YAML output structure.
+* `README.md` — documents the purpose and behavior of that prompt version.
 
-V3 extends the candidate-classification approach by requiring every extracted parameter to be supported by evidence from the supplied specification. The model must identify the relevant excerpt and use that evidence to justify the extracted parameter rather than relying only on its interpretation of the surrounding text. This version is designed to make the extraction process more traceable and to reduce unsupported or hallucinated parameters. Evidence becomes an explicit part of the extraction workflow, allowing the generated results to be independently checked against the original specification during the later evidence-auditing stage.
+---
 
-### V4 — Architectural Validation and Structured Extraction
+# Best Version: V4
 
-V4 represents the final and most comprehensive prompt architecture developed in the project. It combines candidate detection, candidate rejection, evidence verification, architectural validation, constraint extraction, and structured YAML generation into a single sequential workflow. The model is required to distinguish genuine architectural parameters from non-parameters, verify that the proposed parameter is actually supported by the specification, preserve the relevant evidence, determine its architectural type and constraints, and finally produce the normalized YAML representation. V4 therefore moves the task from simple information extraction toward a structured architectural analysis pipeline, providing the foundation for subsequent automated validation, evidence auditing, model comparison, ground-truth evaluation, and UDB schema mapping.
+**V4 is the final and most complete prompt architecture developed in the project.** Rather than treating extraction as a single LLM operation, it organizes the task into a sequence of checks covering candidate identification, rejection, architectural relevance, evidence, constraints and structured output. This makes V4 suitable not only for individual extraction experiments but also for the automated benchmarking and validation pipeline used throughout the repository.
+
+| Capability                   |  V1 |    V2   |    V3   |  V4 |
+| ---------------------------- | :-: | :-----: | :-----: | :-: |
+| Parameter extraction         |  ✓  |    ✓    |    ✓    |  ✓  |
+| YAML formatting              |  ✓  |    ✓    |    ✓    |  ✓  |
+| Candidate rejection          |  ✗  |    ✓    |    ✓    |  ✓  |
+| Architectural validation     |  ✗  |    ✓    |    ✓    |  ✓  |
+| ISA visibility analysis      |  ✗  |    ✓    |    ✓    |  ✓  |
+| Evidence excerpts            |  ✗  |    ✗    |    ✓    |  ✓  |
+| Trigger tracking             |  ✗  |    ✗    |    ✓    |  ✓  |
+| Confidence estimation        |  ✗  |    ✗    |    ✓    |  ✓  |
+| Constraint verification      |  ✗  | Partial |    ✓    |  ✓  |
+| Rejection explanations       |  ✗  |    ✓    |    ✓    |  ✓  |
+| Automation-ready output      |  ✗  | Partial | Partial |  ✓  |
+| Production benchmark support |  ✗  |    ✗    | Partial |  ✓  |
+
+### V4 Workflow
+
 
 ```mermaid
 flowchart TD

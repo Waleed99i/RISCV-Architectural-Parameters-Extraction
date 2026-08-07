@@ -20,8 +20,8 @@
 *Benchmarking • Prompt Engineering • Validation • Evidence Auditing • UnifiedDB YAML Generation*
 
 ## Project Overview
+This project investigates the use of **Large Language Models (LLMs)** to automatically extract architectural parameters from RISC-V ISA specifications and convert them into structured representations suitable for the **RISC-V Unified Database (UDB)**. The workflow includes prompt refinement, candidate detection and classification, YAML validation, evidence auditing, multi-model comparison, ground-truth evaluation, and UDB schema mapping. **Twelve LLMs** are benchmarked across the process to evaluate their ability to distinguish genuine architectural parameters from non-architectural or unsupported information. The result is a reproducible end-to-end pipeline from **RISC-V specification text to validated UDB-shaped YAML**. But before doing that, I studied Unified DB in details and prepared Notes [UDB_YAML_Structure.md](UDB_YAML_Structure.md). Also studied PRs of LFX Spring and made [Spring_2026_Study.md](Spring_2026_Study.md).Moreover , prepared [ground_truth](ground_truth/README.md).
 
-This project investigates the use of Large Language Models (LLMs) for the automated extraction of architectural parameters from the RISC-V ISA specifications and their transformation into structured, machine-readable representations suitable for the RISC-V Unified Database (UDB). The work focuses on the complete extraction workflow rather than simply asking an LLM to identify parameters: specification snippets are processed through progressively refined prompts, candidate parameters are identified and classified, extracted information is validated, supporting evidence is audited, and outputs from multiple models and repeated runs are compared against a manually prepared ground-truth baseline. The project benchmarks 12 different LLMs and evaluates their ability to distinguish genuine architectural parameters from constants, constraints, implementation-specific details, and unsupported candidates. The final stage maps the validated extraction results into UDB-shaped YAML, providing an end-to-end and reproducible workflow that connects natural-language RISC-V specifications with structured architectural data.
 
 ## Snippets
 - [Priveleged 19.3.1](snippets/priveleged_19.3.1.txt)
@@ -71,9 +71,19 @@ Each prompt version contains the same four supporting files:
 
 ---
 
+# Results and Validation Report
+
+I ran 3 times for better accuracy. You can checkout [results](results). Moreover , wrote [validate.py](scripts/validate.py) which generates `validation_report.md` under each result (of each run). It mainly checks:
+- YAML Format Validation
+- Required Fields Check
+- Schema Compliance
+- Data Consistency
+
+   
+
 # Best Version: V4
 
-**V4 is the final and most complete prompt architecture developed in the project.** Rather than treating extraction as a single LLM operation, it organizes the task into a sequence of checks covering candidate identification, rejection, architectural relevance, evidence, constraints and structured output. This makes V4 suitable not only for individual extraction experiments but also for the automated benchmarking and validation pipeline used throughout the repository.
+**V4 is the final and most complete prompt architecture developed in the project.** See [prompt_comparison.md](prompt_comparison.md). Rather than treating extraction as a single LLM operation, it organizes the task into a sequence of checks covering candidate identification, rejection, architectural relevance, evidence, constraints and structured output. This makes V4 suitable not only for individual extraction experiments but also for the automated benchmarking and validation pipeline used throughout the repository.
 
 | Capability                   |  V1 |    V2   |    V3   |  V4 |
 | ---------------------------- | :-: | :-----: | :-----: | :-: |
@@ -167,7 +177,7 @@ flowchart TD
 
 # Models Evaluated
 
-The project evaluates **12 Large Language Models from 12 different model/provider ecosystems**, allowing the extraction pipeline to be tested across models with substantially different architectures, context limits, and capabilities. All models were evaluated using the same specification snippets and the same prompt-generation methodology, with the purpose of comparing extraction quality, consistency, evidence handling, and architectural classification rather than relying on the behavior of a single model. The evaluated models are **Claude Sonnet 5 (Anthropic)**, **DeepSeek V4-Flash-0731 (DeepSeek)**, **Gemini 3 (Google)**, **Gemini 3.6 Flash (Google)**, **GLM-5.2 (Zhipu AI)**, **GPT-5.5 (OpenAI)**, **Ising-Calibration-1.5 (NVIDIA)**, **K2.6 (Moonshot AI)**, **Mistral Medium 3.5 (Mistral AI)**, **Proprietary Microsoft Build (Microsoft/Copilot)**, **Qwen (Alibaba Tongyi Lab)**, and **Sonar-Perplexity (Perplexity AI)**. Their reported context capacities range from **4,096 tokens to more than one million tokens**, making the benchmark representative of models with significantly different context capabilities. The model information is maintained separately in the repository so that each experiment can be associated with the exact model configuration used during extraction.
+The project evaluates **12 Large Language Models from 12 different model/provider ecosystems**, allowing the extraction pipeline to be tested across models with substantially different architectures, context limits, and capabilities. All models were evaluated using the same specification snippets and the same prompt-generation methodology, with the purpose of comparing extraction quality, consistency, evidence handling, and architectural classification rather than relying on the behavior of a single model. The evaluated models are **Claude Sonnet 5 (Anthropic)**, **DeepSeek V4-Flash-0731 (DeepSeek)**, **Gemini 3 (Google)**, **Gemini 3.6 Flash (Google)**, **GLM-5.2 (Zhipu AI)**, **GPT-5.5 (OpenAI)**, **Ising-Calibration-1.5 (NVIDIA)**, **K2.6 (Moonshot AI)**, **Mistral Medium 3.5 (Mistral AI)**, **Proprietary Microsoft Build (Microsoft/Copilot)**, **Qwen (Alibaba Tongyi Lab)**, and **Sonar-Perplexity (Perplexity AI)**. Their reported context c?utm_source=chatgpt.comapacities range from **4,096 tokens to more than one million tokens**, making the benchmark representative of models with significantly different context capabilities. The model information is maintained separately in the repository so that each experiment can be associated with the exact model configuration used during extraction.
 
 | Model                       | Provider           |             Reported Context Length |
 | --------------------------- | ------------------ | ----------------------------------: |
@@ -220,3 +230,79 @@ The [`compare.py`](https://github.com/Waleed99i/RISCV-Architectural-Parameters-E
 ### Privileged ISA §2.1 — CSR Address Space
 
 The same comparison was performed for **Privileged ISA §2.1**, with the generated outputs compared across all evaluated models.
+
+Bilkul. Is part ko README mein **Candidates → Hallucination Auditing → UDB YAML → Ground Truth** ke flow mein rakhna best hai. Links bhi official repo ke relevant paths par de raha hoon.
+
+# Candidate Detection & RISC-V Filtering
+
+The candidate-detection stage identifies statements that may represent architectural parameters before they are passed through the full LLM extraction workflow. The repository maintains two complementary candidate-generation approaches: a general detector that searches the specification for parameter-like statements, and a RISC-V-specific detector that further filters and categorizes those candidates according to their architectural relevance.
+
+[`candidate_detector.py`](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/blob/main/scripts/candidate_detector.py) searches the specification snippets for potential parameter candidates and produces structured candidate lists. This provides an initial broad search rather than assuming that every detected candidate is a valid architectural parameter.
+
+[`riscv_candidate_detector.py`](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/blob/main/scripts/riscv_candidate_detector.py) applies RISC-V-specific filtering and categorization to the detected candidates. The resulting datasets are stored separately for the evaluated specification sections:
+
+
+candidates/
+
+├── [candidates_19.3.1.json](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/blob/main/candidates/candidates_19.3.1.json)
+
+├── [candidates_2.1.json](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/blob/main/candidates/candidates_2.1.json)
+
+├── [riscv_candidates_19.3.1.json](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/blob/main/candidates/riscv_candidates_19.3.1.json)
+
+└── [riscv_candidates_2.1.json](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/blob/main/candidates/riscv_candidates_2.1.json)
+
+
+The distinction between the two stages is intentional: **candidate detection aims for coverage, while RISC-V-specific filtering aims to improve relevance before extraction and validation.**
+
+---
+
+# Hallucination & Evidence Auditing
+
+The extraction pipeline does not treat an LLM-generated parameter as correct simply because it follows the expected YAML schema. The evidence-auditing stage independently examines the generated results and checks whether the claimed evidence is actually supported by the supplied specification.
+
+[`evidence_auditor.py`](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/blob/main/scripts/evidence_auditor.py) performs this verification and generates model-specific audit reports. The audits are organized by specification section and model, making it possible to inspect unsupported parameters, incorrect evidence, and other hallucination-related issues across individual runs.
+
+```text
+audits/
+├── priveleged_19.3.1/
+│   ├── <model>/
+│   └── README.md
+│
+├── priveleged_2.1/
+│   ├── <model>/
+│   └── README.md
+│
+└── README.md
+```
+
+This makes evidence auditing a separate verification layer rather than relying entirely on the model's own confidence or explanation. In particular, an output can be **syntactically valid YAML while still being semantically unsupported**, which is why validation and evidence auditing are treated as separate stages.
+
+---
+
+# UDB YAML Mapping
+
+After extraction and validation, the generated parameter representation can be mapped into the structure used by the RISC-V Unified Database (UDB).
+
+[`schema_mapper.py`](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/blob/main/scripts/schema_mapper.py) performs this conversion from the project's extraction schema into a normalized UDB-oriented representation.
+
+The resulting outputs are maintained in:
+
+[`UDB_YAML/`](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/tree/main/UDB_YAML)
+
+
+├── [privileged_19.3.1.yaml](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/blob/main/UDB_YAML/privileged_19.3.1.yaml)
+
+└── [privileged_2.1.yaml](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/blob/main/UDB_YAML/privileged_2.1.yaml)
+
+The purpose of this stage is not merely to serialize the LLM output as YAML. It provides a bridge between the **experiment's parameter representation** and the **schema and naming conventions used by UDB**, making the extracted information suitable for further evaluation and potential integration.
+
+---
+
+# Ground Truth & Evaluation
+
+Ground truth provides the reference against which generated parameters can be evaluated. Instead of comparing models only with each other, the project maintains manually prepared reference outputs for the evaluated specification sections.
+
+[`ground_truth/`](https://github.com/Waleed99i/RISCV-Architectural-Parameters-Extraction/tree/main/ground_truth?utm_source=chatgpt.com) contains the documentation and reference material used for this evaluation process.
+
+The ground-truth layer allows the project to distinguish **agreement between models** from **actual correctness**. A parameter appearing in several model outputs does not necessarily make it correct; evaluation against a known reference set provides a stronger basis for measuring extraction quality, identifying false positives and omissions, and analyzing the effect of successive prompt versions.
